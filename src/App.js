@@ -9,22 +9,35 @@ import "./App.css";
 import Home from "./Pages/Home/Home";
 import Nav from "./Components/Nav/Nav";
 import LogIn from "./Pages/Login/Login";
-import SignUp from "./Pages/SignUp/Sign";
+import SignUp from "./Pages/SignUp/SignUp";
 import Bought from "./Pages/Bought/Bought";
 import Cart from "./Pages/Cart/Cart";
 import Page404 from "./Pages/Page404/Page404";
+import "bootstrap/dist/css/bootstrap.min.css";
+import { auth } from "./firebaseinit";
 
 function App() {
   const [loading, setLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState();
+  const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   useEffect(() => {
-    setLoading(false);
+    const sub = auth.onAuthStateChanged((user) => {
+      if (user) {
+        const uid = user.uid;
+        console.log("uid", uid);
+        setIsLoggedIn(uid);
+      } else {
+        console.log("user is logged out");
+        setIsLoggedIn(null);
+      }
+      setLoading(false);
+    });
+    return sub;
   }, []);
 
   const Protected = ({ children }) => {
     if (!isLoggedIn) {
-      return <Navigate to="/" replace />;
+      return <Navigate to="/login" replace />;
     }
     return children;
   };
@@ -32,7 +45,7 @@ function App() {
   const browserRouter = createBrowserRouter([
     {
       path: "/",
-      element: <Nav />,
+      element: <Nav isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />,
       errorElement: <Page404 />,
       children: [
         { index: true, element: <Home /> },
