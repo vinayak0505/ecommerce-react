@@ -25,50 +25,42 @@ const SignUp = () => {
         console.log(errorCode, errorMessage);
       });
   };
-
   return (
-    <main>
-      <section>
-        <div>
-          <div>
-            <h1> FocusApp </h1>
-            <form>
-              <div>
-                <label htmlFor="email-address">Email address</label>
-                <input
-                  type="email"
-                  label="Email address"
-                  value={email}
-                  onChange={(e) => setEmail(e.target.value)}
-                  required
-                  placeholder="Email address"
-                />
-              </div>
-
-              <div>
-                <label htmlFor="password">Password</label>
-                <input
-                  type="password"
-                  label="Create password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                  placeholder="Password"
-                />
-              </div>
-
-              <button type="submit" onClick={onSubmit}>
-                Sign up
-              </button>
-            </form>
-
-            <p>
-              Already have an account? <NavLink to="/login">Sign in</NavLink>
-            </p>
+    <div className="login-container">
+      <div className="login-box">
+        <h2>Sign Up</h2>
+        <form>
+          <div className="input-container">
+            <label htmlFor="email-address">Email address</label>
+            <input
+              type="email"
+              label="Email address"
+              value={email}
+              onChange={(e) => setEmail(e.target.value)}
+              required
+              placeholder="Email address"
+            />
           </div>
-        </div>
-      </section>
-    </main>
+          <div className="input-container">
+            <label htmlFor="password">Password</label>
+            <input
+              type="password"
+              label="Create password"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
+              required
+              placeholder="Password"
+            />
+          </div>
+          <div className="button-container">
+            <button onClick={onSubmit}>Sign up</button>
+          </div>
+        </form>
+        <p>
+          Already have an account? <NavLink to="/login">Sign in</NavLink>
+        </p>
+      </div>
+    </div>
   );
 };
 
