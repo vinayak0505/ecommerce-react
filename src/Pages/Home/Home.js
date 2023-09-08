@@ -145,7 +145,7 @@ const Home = ({ id }) => {
                     Rs {product.price * 100}
                   </li>
                   <button
-                    className="btn m-1"
+                    className="button"
                     onClick={() => addProduct(product)}
                   >
                     Add to Cart

@@ -1,5 +1,5 @@
-button {
-  background-color: #d2c9ff;
+.button {
+  background-color: rgb(116, 103, 182);
   color: #fff;
   border: none;
   border-radius: 3px;
@@ -8,6 +8,6 @@ button {
   transition: background-color 0.2s ease-in-out;
 }
 
-button:hover {
-  background-color: #d2c9ff;
+.button:hover {
+  background-color: rgb(73, 65, 114);
 }
