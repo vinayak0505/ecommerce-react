@@ -3,7 +3,7 @@ import React, { useState, useEffect, useRef } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebaseinit";
 
@@ -12,6 +12,7 @@ const Home = ({ id }) => {
   const [filter, setFilter] = useState(data);
   const [loading, setLoading] = useState(true);
   const mounted = useRef(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const getProducts = async () => {
@@ -32,6 +33,10 @@ const Home = ({ id }) => {
   }, []);
 
   const addProduct = async (product) => {
+    if (id == null) {
+      navigate("/login");
+      return;
+    }
     const docRef = doc(db, "cart", id);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data();
@@ -136,9 +141,11 @@ const Home = ({ id }) => {
                   </p>
                 </div>
                 <ul className="list-group list-group-flush">
-                  <li className="list-group-item lead">Rs {product.price * 100}</li>
+                  <li className="list-group-item lead">
+                    Rs {product.price * 100}
+                  </li>
                   <button
-                    className="btn btn-dark m-1"
+                    className="btn m-1"
                     onClick={() => addProduct(product)}
                   >
                     Add to Cart

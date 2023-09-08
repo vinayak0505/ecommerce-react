@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
@@ -6,9 +6,6 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
 import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebaseinit";
-
-const objectMap = (obj, fn) =>
-  Object.fromEntries(Object.entries(obj).map(([k, v], i) => [k, fn(v, k, i)]));
 
 const Cart = ({ id }) => {
   const [data, setData] = useState([]);
@@ -26,7 +23,7 @@ const Cart = ({ id }) => {
   const total = () => {
     if (id == null) return 0;
     var ans = 0;
-    Object.values(data).forEach((p) => (ans += (p.price * 100) * p.count));
+    Object.values(data).forEach((p) => (ans += p.price * 100 * p.count));
     return ans;
   };
 
@@ -118,7 +115,9 @@ const Cart = ({ id }) => {
                           <h1 className="fw-bold mb-0 text-black">
                             Shopping Cart
                           </h1>
-                          <h6 className="mb-0 text-muted">3 items</h6>
+                          <h6 className="mb-0 text-muted">
+                            {Object.values(data).length} items
+                          </h6>
                         </div>
                         <hr className="my-4" />
                         {Object.values(data).map((product) => (
@@ -166,7 +165,7 @@ const Cart = ({ id }) => {
                               </div>
                               <div className="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                                 <h6 className="mb-0">
-                                  Rs {(product.price * 100) * product.count}
+                                  Rs {product.price * 100 * product.count}
                                 </h6>
                               </div>
                               <div className="col-md-1 col-lg-1 col-xl-1 text-end">
@@ -196,7 +195,9 @@ const Cart = ({ id }) => {
                         <hr className="my-4" />
 
                         <div className="d-flex justify-content-between mb-4">
-                          <h5 className="text-uppercase">items 3</h5>
+                          <h5 className="text-uppercase">
+                            items {Object.values(data).length}
+                          </h5>
                           <h5>Rs {total()}</h5>
                         </div>
 

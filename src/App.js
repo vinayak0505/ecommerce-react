@@ -63,7 +63,7 @@ function App() {
           path: "/bought",
           element: (
             <Protected>
-              <Bought></Bought>
+              <Bought id={isLoggedIn}></Bought>
             </Protected>
           ),
         },
