@@ -7,6 +7,7 @@ import { auth } from "../../firebaseinit";
 
 const Nav = ({ isLoggedIn, setIsLoggedIn }) => {
   const navigate = useNavigate();
+
   const handleLogout = () => {
     signOut(auth)
       .then(() => {
@@ -18,6 +19,8 @@ const Nav = ({ isLoggedIn, setIsLoggedIn }) => {
         // An error happened.
       });
   };
+  
+  
   return (
     <>
       <nav className="navbar navbar-expand-lg navbar-light bg-light py-3 sticky-top">

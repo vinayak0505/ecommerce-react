@@ -4,8 +4,10 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import { Link } from "react-router-dom";
+import { doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "../../firebaseinit";
 
-const Home = () => {
+const Home = ({ id }) => {
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
   const [loading, setLoading] = useState(true);
@@ -28,6 +30,20 @@ const Home = () => {
 
     getProducts();
   }, []);
+
+  const addProduct = async (product) => {
+    const docRef = doc(db, "cart", id);
+    const docSnap = await getDoc(docRef);
+    const data = docSnap.data();
+    if (data[product.id]) {
+      product.count += data[product.id].count;
+    } else {
+      product.count = 1;
+    }
+    data[product.id] = product;
+    console.log(data);
+    setDoc(docRef, data);
+  };
 
   const Loading = () => {
     return (
@@ -123,7 +139,7 @@ const Home = () => {
                   <li className="list-group-item lead">Rs {product.price}</li>
                   <button
                     className="btn btn-dark m-1"
-                    // onClick={() => addProduct(product)}
+                    onClick={() => addProduct(product)}
                   >
                     Add to Cart
                   </button>

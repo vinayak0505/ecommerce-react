@@ -48,7 +48,7 @@ function App() {
       element: <Nav isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />,
       errorElement: <Page404 />,
       children: [
-        { index: true, element: <Home /> },
+        { index: true, element: <Home id={isLoggedIn} /> },
         { path: "/login", element: <LogIn /> },
         { path: "/signup", element: <SignUp /> },
         {
