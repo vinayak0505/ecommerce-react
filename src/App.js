@@ -55,7 +55,7 @@ function App() {
           path: "/cart",
           element: (
             <Protected>
-              <Cart></Cart>
+              <Cart id={isLoggedIn}></Cart>
             </Protected>
           ),
         },

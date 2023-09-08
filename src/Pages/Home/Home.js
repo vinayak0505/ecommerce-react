@@ -36,7 +36,7 @@ const Home = ({ id }) => {
     const docSnap = await getDoc(docRef);
     const data = docSnap.data();
     if (data[product.id]) {
-      product.count += data[product.id].count;
+      product.count = data[product.id].count + 1;
     } else {
       product.count = 1;
     }
@@ -136,7 +136,7 @@ const Home = ({ id }) => {
                   </p>
                 </div>
                 <ul className="list-group list-group-flush">
-                  <li className="list-group-item lead">Rs {product.price}</li>
+                  <li className="list-group-item lead">Rs {product.price * 100}</li>
                   <button
                     className="btn btn-dark m-1"
                     onClick={() => addProduct(product)}
