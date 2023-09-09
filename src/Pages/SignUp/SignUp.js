@@ -1,11 +1,16 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useUserValue } from "../../Logic/auth";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const signIn = useUserValue().signIn;
+  const signUp = useUserValue().signUp;
+  const navigate = useNavigate();
+
+  const onSignUp = async (e) => {
+    if (await signUp(e, email, password)) navigate("/");
+  };
 
   return (
     <div className="login-container">
@@ -35,7 +40,7 @@ const SignUp = () => {
             />
           </div>
           <div className="button-container">
-            <button onClick={(e) => signIn(e,email,password)}>Sign up</button>
+            <button onClick={onSignUp}>Sign up</button>
           </div>
         </form>
         <p>

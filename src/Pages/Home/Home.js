@@ -41,14 +41,13 @@ const Home = () => {
     }
     const docRef = doc(db, "cart", userId);
     const docSnap = await getDoc(docRef);
-    const data = docSnap.data();
-    if (data[product.id]) {
+    const data = docSnap.data() ?? {};
+    if (data && data[product.id]) {
       product.count = data[product.id].count + 1;
     } else {
       product.count = 1;
     }
     data[product.id] = product;
-    console.log(data);
     setDoc(docRef, data);
   };
 

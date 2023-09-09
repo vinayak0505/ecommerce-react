@@ -3,7 +3,7 @@ import React, { useState, useEffect } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebaseinit";
 import { useUserValue } from "../../Logic/auth";
@@ -12,6 +12,7 @@ const Cart = () => {
   const userId = useUserValue().userId;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     if (userId == null) return;
@@ -59,15 +60,18 @@ const Cart = () => {
   };
 
   const buy = async () => {
-    if (loading || data?.values?.length === 0) return;
-    setLoading(true);
-    const cartRef = doc(db, "cart", userId);
-    const boughtRef = doc(db, "bought", userId);
-    const docSnap = await getDoc(boughtRef);
-    const boughtData = docSnap.data()?.item;
-    const item = boughtData ? [...boughtData, data] : [data];
-    const promises = [setDoc(cartRef, {}), setDoc(boughtRef, { item })];
-    await Promise.all(promises);
+    try {
+      if (loading || Object.values(data).length === 0) return;
+      setLoading(true);
+      const cartRef = doc(db, "cart", userId);
+      const boughtRef = doc(db, "bought", userId);
+      const docSnap = await getDoc(boughtRef);
+      const boughtData = docSnap.data()?.item;
+      const item = boughtData ? [...boughtData, data] : [data];
+      const promises = [setDoc(cartRef, {}), setDoc(boughtRef, { item })];
+      await Promise.all(promises);
+      navigate("/bought");
+    } catch (error) {}
     setLoading(false);
   };
 

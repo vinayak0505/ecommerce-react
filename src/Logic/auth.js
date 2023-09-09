@@ -29,42 +29,45 @@ export const UserContextProvider = ({ children }) => {
   }, []);
 
   const logout = async () => {
-    signOut(auth);
+    try {
+      await signOut(auth);
+      return true;
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      return false;
+    }
   };
 
-  const login = (e, email, password) => {
+  const login = async (e, email, password) => {
     e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      return true;
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      return false;
+    }
   };
 
-  const signIn = async (e, email, password) => {
+  const signUp = async (e, email, password) => {
     e.preventDefault();
-
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        const user = userCredential.user;
-        console.log(user);
-        return true;
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-        return false;
-      });
+    try {
+      await createUserWithEmailAndPassword(auth, email, password);
+      return true;
+    } catch (error) {
+      const errorCode = error.code;
+      const errorMessage = error.message;
+      console.log(errorCode, errorMessage);
+      return false;
+    }
   };
 
   return (
-    <userContext.Provider value={{ userId, logout, login, signIn }}>
+    <userContext.Provider value={{ userId, logout, login, signUp }}>
       {children}
     </userContext.Provider>
   );

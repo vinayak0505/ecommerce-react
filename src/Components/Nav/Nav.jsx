@@ -1,20 +1,12 @@
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { NavLink } from "react-router-dom";
 import { useUserValue } from "../../Logic/auth";
 
 const Nav = () => {
   const userId = useUserValue().userId;
   const handleLogout = useUserValue().logout;
-  const navigate = useNavigate();
-
-  useEffect(() => {
-    console.log("testing", userId);
-    if (userId === 0) return;
-    if (userId) navigate("/");
-    else navigate("/login");
-  }, [userId, navigate]);
 
   if (userId === 0) return <>loading</>;
 
