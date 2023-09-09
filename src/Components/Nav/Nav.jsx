@@ -10,7 +10,7 @@ const Nav = () => {
   const userId = useUserValue().userId;
   const handleLogout = useUserValue().logout;
 
-  if (userId === 0) return <>loading</>;
+  if (userId === 0) return <img className="loading" src="/loading.gif" alt="loading"/>;
 
   return (
     <>

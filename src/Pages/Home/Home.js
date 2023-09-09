@@ -161,7 +161,7 @@ const Home = () => {
   };
   return (
     <>
-      <div className="container my-3 py-3">
+      <div className="container my-1 py-1">
         <div className="row justify-content-center">
           {loading ? <Loading /> : <ShowProducts />}
         </div>
