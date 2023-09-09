@@ -17,6 +17,7 @@ import { useUserValue } from "./Logic/auth";
 
 function App() {
   const userId = useUserValue().userId;
+  const message = "asdf";
 
   const Protected = ({ children }) => {
     if (!userId) {
@@ -46,7 +47,7 @@ function App() {
           path: "/bought",
           element: (
             <Protected>
-              <Bought ></Bought>
+              <Bought></Bought>
             </Protected>
           ),
         },

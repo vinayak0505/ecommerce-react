@@ -3,6 +3,7 @@ import { auth } from "../firebaseinit";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { signOut } from "firebase/auth";
+import { toast } from "react-toastify";
 
 export const userContext = createContext();
 
@@ -31,6 +32,7 @@ export const UserContextProvider = ({ children }) => {
   const logout = async () => {
     try {
       await signOut(auth);
+      toast.success("Logout Successfull");
       return true;
     } catch (error) {
       const errorCode = error.code;
@@ -44,10 +46,12 @@ export const UserContextProvider = ({ children }) => {
     e.preventDefault();
     try {
       await signInWithEmailAndPassword(auth, email, password);
+      toast.success("Login Successfull");
       return true;
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
+      toast.error(error.message);
       console.log(errorCode, errorMessage);
       return false;
     }
@@ -57,10 +61,12 @@ export const UserContextProvider = ({ children }) => {
     e.preventDefault();
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      toast.success("SignUp Successfull");
       return true;
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
+      toast.error(error.message);
       console.log(errorCode, errorMessage);
       return false;
     }

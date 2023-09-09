@@ -3,6 +3,8 @@ import { Outlet } from "react-router-dom";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { useUserValue } from "../../Logic/auth";
+import { ToastContainer } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 
 const Nav = () => {
   const userId = useUserValue().userId;
@@ -12,6 +14,16 @@ const Nav = () => {
 
   return (
     <>
+      <ToastContainer
+        position="top-right"
+        autoClose={2000}
+        hideProgressBar={false}
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+      />
       <nav className="navbar navbar-expand-lg navbar-light  py-3 sticky-top nav">
         <div className="container ">
           <NavLink className="navbar-brand text-light fw-bold fs-4 px-2" to="/">

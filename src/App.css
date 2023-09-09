@@ -68,3 +68,34 @@ button:hover {
 .nav {
   background-color: rgb(73, 65, 114);
 }
+
+
+.alert {
+  top: 70px;
+  right: 20px;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: hsla(0, 0%, 39%, 0.2) 0px 2px 8px 0px;
+  background-color: hsl(60, 65%, 85%);
+  font-weight: 1.25rem;
+  font-weight: 600;
+  /* animation: slide-in-out 2s ease-in-out forwards; */
+  /* transform: translateX(110%); */
+}
+
+.page {
+  display: flex;
+}
+
+
+@keyframes slide-in-out {
+  10% {
+    transform: translateX(0);
+  }
+  90% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(150%);
+  }
+}
