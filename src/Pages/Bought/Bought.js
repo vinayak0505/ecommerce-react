@@ -9,6 +9,7 @@ import { useUserValue } from "../../Logic/auth";
 
 const Bought = () => {
   const userId = useUserValue().userId;
+  // bought data loading in firebase
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 

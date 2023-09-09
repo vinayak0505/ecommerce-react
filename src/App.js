@@ -18,6 +18,7 @@ import { useUserValue } from "./Logic/auth";
 function App() {
   const userId = useUserValue().userId;
 
+  // protected to prevent route that should not be acceble without logout
   const Protected = ({ children }) => {
     if (!userId) {
       return <Navigate to="/login" replace />;
@@ -25,6 +26,7 @@ function App() {
     return children;
   };
 
+  // routes
   const browserRouter = createBrowserRouter([
     {
       path: "/",

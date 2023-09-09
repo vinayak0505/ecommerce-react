@@ -10,13 +10,18 @@ import { useUserValue } from "../../Logic/auth";
 
 const Home = () => {
   const userId = useUserValue().userId;
+  // data or values form the api
   const [data, setData] = useState([]);
+  // data or values form the api after appling filter
   const [filter, setFilter] = useState(data);
+  // loading state till the data is loaded
   const [loading, setLoading] = useState(true);
+  // mounted to check if the ui i on the screen or not
   const mounted = useRef(true);
   const navigate = useNavigate();
 
   useEffect(() => {
+    // fetch data from api
     const getProducts = async () => {
       setLoading(true);
       const response = await fetch("https://fakestoreapi.com/products/");
@@ -34,6 +39,7 @@ const Home = () => {
     getProducts();
   }, []);
 
+  // add product to firebase
   const addProduct = async (product) => {
     if (userId == null) {
       navigate("/login");
@@ -51,6 +57,7 @@ const Home = () => {
     setDoc(docRef, data);
   };
 
+  // loading ui
   const Loading = () => {
     return (
       <>
@@ -79,10 +86,13 @@ const Home = () => {
     );
   };
 
+  // filter data on pressing the catogaory
   const filterProduct = (cat) => {
     const updatedList = data.filter((item) => item.category === cat);
     setFilter(updatedList);
   };
+
+  // show prodct ui to display button and product that is fetched
   const ShowProducts = () => {
     return (
       <>
@@ -159,6 +169,7 @@ const Home = () => {
       </>
     );
   };
+  
   return (
     <>
       <div className="container my-1 py-1">

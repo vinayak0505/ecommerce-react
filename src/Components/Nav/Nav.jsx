@@ -6,6 +6,7 @@ import { useUserValue } from "../../Logic/auth";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
 
+// top navigation bar to make it easy for user to navigate
 const Nav = () => {
   const userId = useUserValue().userId;
   const handleLogout = useUserValue().logout;
@@ -14,6 +15,7 @@ const Nav = () => {
 
   return (
     <>
+    {/* Toast container to show taost  */}
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -24,6 +26,7 @@ const Nav = () => {
         pauseOnFocusLoss
         draggable
       />
+      {/* nav bar */}
       <nav className="navbar navbar-expand-lg navbar-light  py-3 sticky-top nav">
         <div className="container ">
           <NavLink className="navbar-brand text-light fw-bold fs-4 px-2" to="/">

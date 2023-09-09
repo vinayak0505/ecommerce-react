@@ -7,15 +7,20 @@ import { toast } from "react-toastify";
 
 export const userContext = createContext();
 
+// user id uservalue to get user id
 export const useUserValue = () => {
   const value = useContext(userContext);
   return value;
 };
 
+// user id 0 states initial
+// user id null state loaded and logout
+// user id value indecated loaded and contains the id
 export const UserContextProvider = ({ children }) => {
   const [userId, setUserId] = useState(0);
 
   useEffect(() => {
+    // onAuthStateChange is a listener that notified on state change and update
     const sub = auth.onAuthStateChanged((user) => {
       if (user) {
         const uid = user.uid;
@@ -29,6 +34,7 @@ export const UserContextProvider = ({ children }) => {
     return sub;
   }, []);
 
+  // logout to logout user from page
   const logout = async () => {
     try {
       await signOut(auth);
@@ -42,6 +48,7 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
+  // login to logout user from page
   const login = async (e, email, password) => {
     e.preventDefault();
     try {
@@ -57,6 +64,7 @@ export const UserContextProvider = ({ children }) => {
     }
   };
 
+  // signUp to logout user from page
   const signUp = async (e, email, password) => {
     e.preventDefault();
     try {

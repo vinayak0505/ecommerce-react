@@ -10,6 +10,7 @@ import { useUserValue } from "../../Logic/auth";
 
 const Cart = () => {
   const userId = useUserValue().userId;
+  // cart data loading in firebase
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
