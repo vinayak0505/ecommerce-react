@@ -3,11 +3,13 @@ import React, { useState, useEffect, useRef } from "react";
 import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebaseinit";
+import { useUserValue } from "../../Logic/auth";
 
-const Home = ({ id }) => {
+const Home = () => {
+  const userId = useUserValue().userId;
   const [data, setData] = useState([]);
   const [filter, setFilter] = useState(data);
   const [loading, setLoading] = useState(true);
@@ -33,11 +35,11 @@ const Home = ({ id }) => {
   }, []);
 
   const addProduct = async (product) => {
-    if (id == null) {
+    if (userId == null) {
       navigate("/login");
       return;
     }
-    const docRef = doc(db, "cart", id);
+    const docRef = doc(db, "cart", userId);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data();
     if (data[product.id]) {

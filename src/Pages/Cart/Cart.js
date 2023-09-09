@@ -6,29 +6,31 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Link } from "react-router-dom";
 import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebaseinit";
+import { useUserValue } from "../../Logic/auth";
 
-const Cart = ({ id }) => {
+const Cart = () => {
+  const userId = useUserValue().userId;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (id == null) return;
-    const unsubscribe = onSnapshot(doc(db, "cart", id), (doc) => {
-      setData(() => doc.data());
+    if (userId == null) return;
+    const unsubscribe = onSnapshot(doc(db, "cart", userId), (doc) => {
+      setData(() => doc.data() ?? []);
       setLoading(false);
     });
     return unsubscribe;
-  }, [id]);
+  }, [userId]);
 
   const total = () => {
-    if (id == null) return 0;
+    if (!userId || !data) return 0;
     var ans = 0;
-    Object.values(data).forEach((p) => (ans += p.price * 100 * p.count));
+    Object.values(data)?.forEach((p) => (ans += p.price * 100 * p.count));
     return ans;
   };
 
   const plusProduct = async (product) => {
-    const docRef = doc(db, "cart", id);
+    const docRef = doc(db, "cart", userId);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data();
     if (data[product.id]) {
@@ -43,7 +45,7 @@ const Cart = ({ id }) => {
   };
 
   const minusProduct = async (product) => {
-    const docRef = doc(db, "cart", id);
+    const docRef = doc(db, "cart", userId);
     const docSnap = await getDoc(docRef);
     const data = docSnap.data();
     product.count = data[product.id].count - 1;
@@ -59,8 +61,8 @@ const Cart = ({ id }) => {
   const buy = async () => {
     if (loading || data?.values?.length === 0) return;
     setLoading(true);
-    const cartRef = doc(db, "cart", id);
-    const boughtRef = doc(db, "bought", id);
+    const cartRef = doc(db, "cart", userId);
+    const boughtRef = doc(db, "bought", userId);
     const docSnap = await getDoc(boughtRef);
     const boughtData = docSnap.data()?.item;
     const item = boughtData ? [...boughtData, data] : [data];
@@ -120,7 +122,7 @@ const Cart = ({ id }) => {
                           </h6>
                         </div>
                         <hr className="my-4" />
-                        {Object.values(data).map((product) => (
+                        {Object.values(data)?.map((product) => (
                           <>
                             <div className="row mb-4 d-flex justify-content-between align-items-center">
                               <div className="col-md-2 col-lg-2 col-xl-2">

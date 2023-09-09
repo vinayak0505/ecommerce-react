@@ -1,30 +1,12 @@
 import React, { useState } from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebaseinit";
+import { Link } from "react-router-dom";
+import { useUserValue } from "../../Logic/auth";
 
 const SignUp = () => {
-  const navigate = useNavigate();
-
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const signIn = useUserValue().signIn;
 
-  const onSubmit = async (e) => {
-    e.preventDefault();
-
-    await createUserWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/login");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
-  };
   return (
     <div className="login-container">
       <div className="login-box">
@@ -53,11 +35,11 @@ const SignUp = () => {
             />
           </div>
           <div className="button-container">
-            <button onClick={onSubmit}>Sign up</button>
+            <button onClick={(e) => signIn(e,email,password)}>Sign up</button>
           </div>
         </form>
         <p>
-          Already have an account? <NavLink to="/login">Sign in</NavLink>
+          Already have an account? <Link to="/login">Sign in</Link>
         </p>
       </div>
     </div>

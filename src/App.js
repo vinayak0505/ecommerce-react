@@ -1,4 +1,3 @@
-import { useEffect, useState } from "react";
 import {
   createBrowserRouter,
   RouterProvider,
@@ -14,29 +13,13 @@ import Bought from "./Pages/Bought/Bought";
 import Cart from "./Pages/Cart/Cart";
 import Page404 from "./Pages/Page404/Page404";
 import "bootstrap/dist/css/bootstrap.min.css";
-import { auth } from "./firebaseinit";
+import { useUserValue } from "./Logic/auth";
 
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [isLoggedIn, setIsLoggedIn] = useState(true);
-
-  useEffect(() => {
-    const sub = auth.onAuthStateChanged((user) => {
-      if (user) {
-        const uid = user.uid;
-        console.log("uid", uid);
-        setIsLoggedIn(uid);
-      } else {
-        console.log("user is logged out");
-        setIsLoggedIn(null);
-      }
-      setLoading(false);
-    });
-    return sub;
-  }, []);
+  const userId = useUserValue().userId;
 
   const Protected = ({ children }) => {
-    if (!isLoggedIn) {
+    if (!userId) {
       return <Navigate to="/login" replace />;
     }
     return children;
@@ -45,17 +28,17 @@ function App() {
   const browserRouter = createBrowserRouter([
     {
       path: "/",
-      element: <Nav isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />,
+      element: <Nav />,
       errorElement: <Page404 />,
       children: [
-        { index: true, element: <Home id={isLoggedIn} /> },
+        { index: true, element: <Home /> },
         { path: "/login", element: <LogIn /> },
         { path: "/signup", element: <SignUp /> },
         {
           path: "/cart",
           element: (
             <Protected>
-              <Cart id={isLoggedIn}></Cart>
+              <Cart />
             </Protected>
           ),
         },
@@ -63,15 +46,13 @@ function App() {
           path: "/bought",
           element: (
             <Protected>
-              <Bought id={isLoggedIn}></Bought>
+              <Bought ></Bought>
             </Protected>
           ),
         },
       ],
     },
   ]);
-
-  if (loading) return <>loading</>;
 
   return (
     <>

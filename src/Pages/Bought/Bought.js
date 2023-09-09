@@ -5,23 +5,25 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebaseinit";
+import { useUserValue } from "../../Logic/auth";
 
-const Bought = ({ id }) => {
+const Bought = () => {
+  const userId = useUserValue().userId;
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (id == null) return;
-    const unsubscribe = onSnapshot(doc(db, "bought", id), (doc) => {
-      const value = doc.data().item;
+    if (userId == null) return;
+    const unsubscribe = onSnapshot(doc(db, "bought", userId), (doc) => {
+      const value = doc.data()?.item;
       setData(() => value);
       setLoading(false);
     });
     return unsubscribe;
-  }, [id]);
+  }, [userId]);
 
   const total = (data) => {
-    if (id == null) return 0;
+    if (userId == null) return 0;
     var ans = 0;
     Object.values(data).forEach((p) => (ans += p.price * 100 * p.count));
     return ans;
@@ -53,12 +55,6 @@ const Bought = ({ id }) => {
         </div>
       </>
     );
-  };
-  const options = {
-    weekday: "long",
-    year: "numeric",
-    month: "short",
-    day: "numeric",
   };
 
   const ShowProducts = ({ i, data }) => {

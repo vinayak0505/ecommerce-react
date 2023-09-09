@@ -1,24 +1,22 @@
-import { Outlet } from "react-router-dom";
+import { Outlet, useNavigate } from "react-router-dom";
 
-import React from "react";
-import { NavLink, useNavigate } from "react-router-dom";
-import { signOut } from "firebase/auth";
-import { auth } from "../../firebaseinit";
+import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
+import { useUserValue } from "../../Logic/auth";
 
-const Nav = ({ isLoggedIn, setIsLoggedIn }) => {
+const Nav = () => {
+  const userId = useUserValue().userId;
+  const handleLogout = useUserValue().logout;
   const navigate = useNavigate();
 
-  const handleLogout = () => {
-    signOut(auth)
-      .then(() => {
-        // Sign-out successful.
-        console.log("Signed out successfully");
-        navigate("/");
-      })
-      .catch((error) => {
-        // An error happened.
-      });
-  };
+  useEffect(() => {
+    console.log("testing", userId);
+    if (userId === 0) return;
+    if (userId) navigate("/");
+    else navigate("/login");
+  }, [userId, navigate]);
+
+  if (userId === 0) return <>loading</>;
 
   return (
     <>
@@ -39,7 +37,7 @@ const Nav = ({ isLoggedIn, setIsLoggedIn }) => {
               <NavLink to="/cart" className="btn btn-outline-dark m-2">
                 <i className="fa fa-cart-shopping mr-1"></i> Cart
               </NavLink>
-              {isLoggedIn ? (
+              {userId ? (
                 <div
                   onClick={handleLogout}
                   className="btn btn-outline-dark m-2"

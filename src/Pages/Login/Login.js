@@ -1,28 +1,12 @@
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../firebaseinit";
-import { NavLink, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
+import { useUserValue } from "../../Logic/auth";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const navigate = useNavigate();
 
-  const onLogin = (e) => {
-    e.preventDefault();
-    signInWithEmailAndPassword(auth, email, password)
-      .then((userCredential) => {
-        // Signed in
-        const user = userCredential.user;
-        console.log(user);
-        navigate("/");
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorCode, errorMessage);
-      });
-  };
+  const onLogin = useUserValue().login;
 
   return (
     <div className="login-container">
@@ -52,11 +36,11 @@ const Login = () => {
             />
           </div>
           <div className="button-container">
-            <button onClick={onLogin}>Login</button>
+            <button onClick={(e) => onLogin(e, email, password)}>Login</button>
           </div>
         </form>
         <p className="text-sm text-center">
-          No account yet? <NavLink to="/signup">Sign up</NavLink>
+          No account yet? <Link to="/signup">Sign up</Link>
         </p>
       </div>
     </div>
