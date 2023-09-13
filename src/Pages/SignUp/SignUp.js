@@ -1,16 +1,16 @@
 import React, { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { signUp } from "../../redux/reducer/authReducer";
+import { Link } from "react-router-dom";
+import { signUpUser } from "../../redux/reducer/authReducer";
+import { useDispatch } from "react-redux";
 
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-
-  const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   const onSignUp = async (e) => {
     e.preventDefault();
-    if (await signUp(email, password)) navigate("/");
+    dispatch(signUpUser({ email, password }));
   };
 
   return (

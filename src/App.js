@@ -20,10 +20,12 @@ import { auth } from "./firebaseinit";
 // import { useUserValue } from "./Logic/auth";
 
 function App() {
-  const {userId,loading} = useSelector(authSelector);
+  const { userId, loading } = useSelector(authSelector);
+  console.log("userid",userId);
   const dispatch = useDispatch();
   useEffect(() => {
-    auth.onAuthStateChanged((user) => {
+    if (loading === false) return;
+    const sub = auth.onAuthStateChanged((user) => {
       if (user) {
         const uid = user.uid;
         console.log("uid", uid);
@@ -33,7 +35,8 @@ function App() {
         dispatch(authAction.logout());
       }
     });
-  });
+    return sub;
+  }, [loading, dispatch]);
 
   // protected to prevent route that should not be acceble without logout
   const Protected = ({ children }) => {
@@ -94,7 +97,8 @@ function App() {
     },
   ]);
 
-  if (loading) return <img className="loading" src="/loading.gif" alt="loading"/>;
+  if (loading)
+    return <img className="loading" src="/loading.gif" alt="loading" />;
 
   return (
     <>

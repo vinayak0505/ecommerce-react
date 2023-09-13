@@ -3,44 +3,24 @@ import {
   signInWithEmailAndPassword,
 } from "firebase/auth";
 import { auth } from "../../firebaseinit";
+import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
-const { createSlice, createAsyncThunk } = require("@reduxjs/toolkit");
+const initialState = { userId: null, loading: true, error: null };
 
-const initialState = { userId: null, loading: true };
+export const loginUser = createAsyncThunk("auth/login", async (arg) =>
+  signInWithEmailAndPassword(auth, arg.email, arg.password)
+);
 
-export const login = async (email, password) => {
-  try {
-    await signInWithEmailAndPassword(auth, email, password);
-    return true;
-  } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode, errorMessage);
-    return false;
-  }
-};
+/**
+ * Logout the user by signing them out
+ */
+export const logoutUser = createAsyncThunk("auth/logout", async () =>
+  auth.signOut()
+);
 
-export const logout = async () => {
-  try {
-    await auth.signOut();
-  } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode, errorMessage);
-  }
-};
-
-export const signUp = async (email, password) => {
-  try {
-    await createUserWithEmailAndPassword(auth, email, password);
-    return true;
-  } catch (error) {
-    const errorCode = error.code;
-    const errorMessage = error.message;
-    console.log(errorCode, errorMessage);
-    return false;
-  }
-};
+export const signUpUser = createAsyncThunk("auth/signup", async (arg) =>
+  createUserWithEmailAndPassword(auth, arg.email, arg.password)
+);
 
 const authSlice = createSlice({
   name: "auth",
@@ -49,15 +29,51 @@ const authSlice = createSlice({
     login: (state, action) => {
       state.userId = action.payload;
       state.loading = false;
+      state.error = null;
     },
     logout: (state) => {
       state.userId = null;
       state.loading = false;
+      state.error = null;
     },
-    loading: (state) => {
+    error: (state, action) => {
       state.userId = null;
-      state.loading = true;
+      state.loading = false;
+      state.error = action.payload;
     },
+  },
+  extraReducers: (builder) => {
+    builder
+      .addCase(loginUser.fulfilled, (state, action) => {
+        state.userId = action.payload.user.uid;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(loginUser.rejected, (state, action) => {
+        state.userId = null;
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(signUpUser.fulfilled, (state, action) => {
+        state.userId = action.payload.user.uid;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(signUpUser.rejected, (state, action) => {
+        state.userId = null;
+        state.loading = false;
+        state.error = action.error.message;
+      })
+      .addCase(logoutUser.fulfilled, (state, action) => {
+        state.userId = null;
+        state.loading = false;
+        state.error = null;
+      })
+      .addCase(logoutUser.rejected, (state, action) => {
+        state.userId = null;
+        state.loading = false;
+        state.error = action.error.message;
+      });
   },
 });
 

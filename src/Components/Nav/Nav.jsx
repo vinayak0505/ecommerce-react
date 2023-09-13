@@ -3,16 +3,17 @@ import { Outlet } from "react-router-dom";
 import React from "react";
 import { NavLink } from "react-router-dom";
 import { ToastContainer } from "react-toastify";
-import 'react-toastify/dist/ReactToastify.css';
-import { useSelector } from "react-redux";
-import { authSelector, logout } from "../../redux/reducer/authReducer";
+import "react-toastify/dist/ReactToastify.css";
+import { useDispatch, useSelector } from "react-redux";
+import { authSelector, logoutUser } from "../../redux/reducer/authReducer";
 
 // top navigation bar to make it easy for user to navigate
 const Nav = () => {
   const userId = useSelector(authSelector).userId;
+  const dispatch = useDispatch();
   return (
     <>
-    {/* Toast container to show taost  */}
+      {/* Toast container to show taost  */}
       <ToastContainer
         position="top-right"
         autoClose={2000}
@@ -43,7 +44,7 @@ const Nav = () => {
               </NavLink>
               {userId ? (
                 <div
-                  onClick={logout}
+                  onClick={() => dispatch(logoutUser())}
                   className="btn btn-outline-dark m-2"
                 >
                   <i className="fa fa-sign-in-alt mr-1"></i> Logout
