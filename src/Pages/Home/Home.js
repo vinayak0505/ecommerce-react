@@ -6,10 +6,11 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc } from "firebase/firestore";
 import { db } from "../../firebaseinit";
-import { useUserValue } from "../../Logic/auth";
+import { useSelector } from "react-redux";
+import { authSelector } from "../../redux/reducer/authReducer";
 
 const Home = () => {
-  const userId = useUserValue().userId;
+  const userId = useSelector(authSelector).userId;
   // data or values form the api
   const [data, setData] = useState([]);
   // data or values form the api after appling filter

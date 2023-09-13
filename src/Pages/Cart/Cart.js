@@ -6,10 +6,11 @@ import "react-loading-skeleton/dist/skeleton.css";
 import { Link, useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebaseinit";
-import { useUserValue } from "../../Logic/auth";
+import { useSelector } from "react-redux";
+import { authSelector } from "../../redux/reducer/authReducer";
 
 const Cart = () => {
-  const userId = useUserValue().userId;
+  const userId = useSelector(authSelector).userId;
   // cart data loading in firebase
   const [data, setData] = useState([]);
   const [loading, setLoading] = useState(true);

@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useUserValue } from "../../Logic/auth";
+import { login } from "../../redux/reducer/authReducer";
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const login = useUserValue().login;
-
   const onLogin = async (e) => {
-    if (await login(e, email, password)) navigate("/");
+    e.preventDefault();
+    if (await login(email, password)) navigate("/");
   };
 
   return (

@@ -2,17 +2,14 @@ import { Outlet } from "react-router-dom";
 
 import React from "react";
 import { NavLink } from "react-router-dom";
-import { useUserValue } from "../../Logic/auth";
 import { ToastContainer } from "react-toastify";
 import 'react-toastify/dist/ReactToastify.css';
+import { useSelector } from "react-redux";
+import { authSelector, logout } from "../../redux/reducer/authReducer";
 
 // top navigation bar to make it easy for user to navigate
 const Nav = () => {
-  const userId = useUserValue().userId;
-  const handleLogout = useUserValue().logout;
-
-  if (userId === 0) return <img className="loading" src="/loading.gif" alt="loading"/>;
-
+  const userId = useSelector(authSelector).userId;
   return (
     <>
     {/* Toast container to show taost  */}
@@ -46,7 +43,7 @@ const Nav = () => {
               </NavLink>
               {userId ? (
                 <div
-                  onClick={handleLogout}
+                  onClick={logout}
                   className="btn btn-outline-dark m-2"
                 >
                   <i className="fa fa-sign-in-alt mr-1"></i> Logout
