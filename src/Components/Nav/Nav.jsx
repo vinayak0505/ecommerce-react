@@ -7,7 +7,35 @@ import "react-toastify/dist/ReactToastify.css";
 import { useDispatch, useSelector } from "react-redux";
 import { authSelector, logoutUser } from "../../redux/reducer/authReducer";
 
-// top navigation bar to make it easy for user to navigate
+/**
+ * Nav.jsx
+ *
+ * This file contains the Nav component, which represents the top navigation bar of the application.
+ * It provides easy navigation options for users to navigate between different pages of the application.
+ *
+ * The Nav component includes the following features:
+ * - Dynamically renders navigation links based on user authentication status
+ * - Displays a toast container for showing notifications
+ * - Uses React Router's NavLink for routing to different pages
+ * - Uses Redux hooks (useSelector and useDispatch) for accessing and dispatching actions
+ *
+ * To use this component, import it into your desired location in the application and include it in the
+ * appropriate parent component. Ensure that you have React Router and Redux properly set up and configured.
+ *
+ * Example usage:
+ * import Nav from './Nav';
+ *
+ * function App() {
+ *   return (
+ *     <div>
+ *       <Nav />
+ *       { Your other components }
+ *     </div>
+ *   );
+ * }
+ *
+ * export default App;
+ */
 const Nav = () => {
   const userId = useSelector(authSelector).userId;
   const dispatch = useDispatch();

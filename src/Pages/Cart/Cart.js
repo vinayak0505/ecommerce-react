@@ -5,7 +5,40 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 import { Link, useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
-import { db } from "../../firebaseinit";
+import { db } from "../../firebaseinit";/**
+ * Cart.js
+ *
+ * This file contains the Cart component, which represents the shopping cart page of the application.
+ * It handles the display of the user's cart items, allows them to add or remove items from the cart,
+ * and calculates the total price of the items in the cart.
+ *
+ * The Cart component includes the following functions:
+ * - total: Calculates the total price of the items in the cart.
+ * - plusProduct: Adds a product to the cart.
+ * - minusProduct: Removes a product from the cart.
+ * - buy: Handles the process of buying the items in the cart.
+ * - Loading: Displays a loading skeleton while the cart data is being fetched.
+ *
+ * This file also imports necessary dependencies and Firebase Firestore functions for data manipulation.
+ * It uses React hooks and state to manage the cart data and loading status.
+ *
+ * Usage:
+ * Import this file and use the Cart component in the desired location of your application.
+ * Ensure that the necessary dependencies and Firebase configuration are properly set up.
+ *
+ * Example:
+ * import Cart from './Cart';
+ *
+ * function App() {
+ *   return (
+ *     <div>
+ *       <Cart />
+ *     </div>
+ *   );
+ * }
+ *
+ * export default App;
+ */
 import { useSelector } from "react-redux";
 import { authSelector } from "../../redux/reducer/authReducer";
 

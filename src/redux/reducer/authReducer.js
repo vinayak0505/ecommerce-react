@@ -26,22 +26,45 @@ const authSlice = createSlice({
   name: "auth",
   initialState: initialState,
   reducers: {
+    /**
+     * Updates the login state with the provided user ID, and sets the loading state to false and clears any error.
+     *
+     * @param {object} state - The current state object.
+     * @param {object} action - The action object containing the payload with the user ID.
+     */
     login: (state, action) => {
       state.userId = action.payload;
       state.loading = false;
       state.error = null;
     },
+    /**
+     * Logs the user out by resetting the state.
+     *
+     * @param {object} state - The current state of the application.
+     */
     logout: (state) => {
       state.userId = null;
       state.loading = false;
       state.error = null;
     },
+    /**
+     * Sets the error state in the Redux store.
+     *
+     * @param {object} state - The current state object.
+     * @param {object} action - The action object containing the payload.
+     */
     error: (state, action) => {
       state.userId = null;
       state.loading = false;
       state.error = action.payload;
     },
   },
+  /**
+   * Generates extra reducers for the given builder.
+   *
+   * @param {object} builder - The builder object.
+   * @return {void}
+   */
   extraReducers: (builder) => {
     builder
       .addCase(loginUser.fulfilled, (state, action) => {

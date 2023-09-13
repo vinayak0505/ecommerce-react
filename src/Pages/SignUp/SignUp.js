@@ -2,7 +2,36 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import { signUpUser } from "../../redux/reducer/authReducer";
 import { useDispatch } from "react-redux";
-
+/**
+ * Signup.js
+ *
+ * This file contains the Signup component, which represents the signup page of the application.
+ * It allows new users to create an account by providing their username, email, and password.
+ *
+ * The Signup component includes the following functions and features:
+ * - Renders a signup form with input fields for username, email, and password.
+ * - Handles form submission and validates user input.
+ * - Sends a signup request to the server and handles the response.
+ * - Stores the user's authentication token in local storage upon successful signup.
+ * - Redirects the user to the home page upon successful signup.
+ * - Displays error messages if signup fails or there are validation errors.
+ *
+ * Usage:
+ * Import this file and use the Signup component in the desired location of your application.
+ *
+ * Example:
+ * import Signup from './Signup';
+ *
+ * function App() {
+ *   return (
+ *     <div>
+ *       <Signup />
+ *     </div>
+ *   );
+ * }
+ *
+ * export default App;
+ */
 const SignUp = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");

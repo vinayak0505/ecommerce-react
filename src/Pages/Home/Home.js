@@ -9,6 +9,37 @@ import { db } from "../../firebaseinit";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../redux/reducer/authReducer";
 
+/**
+ * Home.js
+ *
+ * This file contains the Home component, which represents the homepage of the application.
+ * It fetches data from an API, displays the data in a UI, and allows users to interact with the data.
+ *
+ * The Home component includes the following functions and features:
+ * - Fetches data from the "https://fakestoreapi.com/products/" API endpoint.
+ * - Uses React hooks to manage state and data.
+ * - Displays a loading UI while the data is being fetched.
+ * - Renders the fetched data in a responsive grid layout.
+ * - Allows users to add products to a cart by clicking on a "Add to Cart" button.
+ * - Redirects users to the login page if they are not authenticated.
+ *
+ * Usage:
+ * Import this file and use the Home component in the desired location of your application.
+ * Ensure that the necessary dependencies, such as React Router and Redux, are properly set up.
+ *
+ * Example:
+ * import Home from './Home';
+ *
+ * function App() {
+ *   return (
+ *     <div>
+ *       <Home />
+ *     </div>
+ *   );
+ * }
+ *
+ * export default App;
+ */
 const Home = () => {
   const userId = useSelector(authSelector).userId;
   // data or values form the api

@@ -96,7 +96,7 @@ function App() {
       ],
     },
   ]);
-
+  
   if (loading)
     return <img className="loading" src="/loading.gif" alt="loading" />;
 

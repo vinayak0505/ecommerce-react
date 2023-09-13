@@ -3,7 +3,6 @@ import { toast } from "react-toastify";
 export const toastMiddleware = (store) => {
   return function (next) {
     return function (action) {
-      // log actions
       switch (action.type) {
         case "auth/loginUser/fulfilled":
           toast.info("Logged in successfully");

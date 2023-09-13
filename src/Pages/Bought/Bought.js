@@ -7,7 +7,37 @@ import { doc, onSnapshot } from "firebase/firestore";
 import { db } from "../../firebaseinit";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../redux/reducer/authReducer";
-
+/**
+ * Bought.js
+ *
+ * This file contains the Bought component, which represents the page displaying the user's purchased items.
+ * It fetches the user's purchased items from the server and displays them in a list format.
+ *
+ * The Bought component includes the following functions and features:
+ * - Fetches the user's purchased items from the server using an API request.
+ * - Uses React hooks to manage state and data.
+ * - Renders the fetched purchased items in a list format.
+ * - Provides a user-friendly interface for viewing purchased items.
+ * - Displays a loading indicator while the data is being fetched.
+ * - Handles any errors that occur during the data fetching process.
+ *
+ * Usage:
+ * Import this file and use the Bought component in the desired location of your application.
+ * Ensure that the necessary dependencies and API endpoints are properly set up.
+ *
+ * Example:
+ * import Bought from './Bought';
+ *
+ * function App() {
+ *   return (
+ *     <div>
+ *       <Bought />
+ *     </div>
+ *   );
+ * }
+ *
+ * export default App;
+ */
 const Bought = () => {
   const userId = useSelector(authSelector).userId;
   // bought data loading in firebase
