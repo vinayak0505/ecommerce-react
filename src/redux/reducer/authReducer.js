@@ -7,18 +7,18 @@ import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 
 const initialState = { userId: null, loading: true, error: null };
 
-export const loginUser = createAsyncThunk("auth/login", async (arg) =>
+export const loginUser = createAsyncThunk("auth/loginUser", async (arg) =>
   signInWithEmailAndPassword(auth, arg.email, arg.password)
 );
 
 /**
  * Logout the user by signing them out
  */
-export const logoutUser = createAsyncThunk("auth/logout", async () =>
+export const logoutUser = createAsyncThunk("auth/logoutUser", async () =>
   auth.signOut()
 );
 
-export const signUpUser = createAsyncThunk("auth/signup", async (arg) =>
+export const signUpUser = createAsyncThunk("auth/signUpUser", async (arg) =>
   createUserWithEmailAndPassword(auth, arg.email, arg.password)
 );
 
@@ -50,9 +50,9 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        state.error = action.error.message;
         state.userId = null;
         state.loading = false;
-        state.error = action.error.message;
       })
       .addCase(signUpUser.fulfilled, (state, action) => {
         state.userId = action.payload.user.uid;
