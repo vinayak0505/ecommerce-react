@@ -63,10 +63,6 @@ function App() {
       children: [
         { index: true, element: <Home /> },
         {
-          path: "/ecommerce-react",
-          element: <div>HELLO</div>,
-        },
-        {
           path: "/login",
           element: (
             <LoggedIn>
