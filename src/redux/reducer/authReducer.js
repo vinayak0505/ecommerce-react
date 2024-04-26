@@ -73,6 +73,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(loginUser.rejected, (state, action) => {
+        console.log(action);
         state.error = action.error.message;
         state.userId = null;
         state.loading = false;
@@ -83,6 +84,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(signUpUser.rejected, (state, action) => {
+        console.log(action);
         state.userId = null;
         state.loading = false;
         state.error = action.error.message;
@@ -93,6 +95,7 @@ const authSlice = createSlice({
         state.error = null;
       })
       .addCase(logoutUser.rejected, (state, action) => {
+        console.log(action);
         state.userId = null;
         state.loading = false;
         state.error = action.error.message;
