@@ -100,7 +100,9 @@ function App() {
         },
       ],
     },
-  ]);
+  ],{
+    basename: process.env.PUBLIC_URL
+  });
   
   if (loading)
     return <img className="loading" src="./loading.gif" alt="loading" />;
