@@ -57,6 +57,10 @@ function App() {
   // routes
   const browserRouter = createBrowserRouter([
     {
+			path: '*',
+			element: <Navigate to="/" replace />
+		},
+    {
       path: "/",
       element: <Nav />,
       errorElement: <Page404 />,
