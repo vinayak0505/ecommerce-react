@@ -17,6 +17,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { authAction, authSelector } from "./redux/reducer/authReducer";
 import { useEffect } from "react";
 import { auth } from "./firebaseinit";
+
 // import { useUserValue } from "./Logic/auth";
 
 function App() {
@@ -102,7 +103,7 @@ function App() {
   ]);
   
   if (loading)
-    return <img className="loading" src="/loading.gif" alt="loading" />;
+    return <img className="loading" src="./loading.gif" alt="loading" />;
 
   return (
     <>
