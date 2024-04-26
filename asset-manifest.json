@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/static/css/main.0c6ccc6c.css",
-    "main.js": "/static/js/main.fc3b5491.js",
-    "static/js/787.dcc73137.chunk.js": "/static/js/787.dcc73137.chunk.js",
-    "index.html": "/index.html",
-    "main.0c6ccc6c.css.map": "/static/css/main.0c6ccc6c.css.map",
-    "main.fc3b5491.js.map": "/static/js/main.fc3b5491.js.map",
-    "787.dcc73137.chunk.js.map": "/static/js/787.dcc73137.chunk.js.map"
+    "main.css": "/ecommerce-react/static/css/main.0c6ccc6c.css",
+    "main.js": "/ecommerce-react/static/js/main.b2a8da90.js",
+    "static/js/787.dcc73137.chunk.js": "/ecommerce-react/static/js/787.dcc73137.chunk.js",
+    "index.html": "/ecommerce-react/index.html",
+    "main.0c6ccc6c.css.map": "/ecommerce-react/static/css/main.0c6ccc6c.css.map",
+    "main.b2a8da90.js.map": "/ecommerce-react/static/js/main.b2a8da90.js.map",
+    "787.dcc73137.chunk.js.map": "/ecommerce-react/static/js/787.dcc73137.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.0c6ccc6c.css",
-    "static/js/main.fc3b5491.js"
+    "static/js/main.b2a8da90.js"
   ]
 }
