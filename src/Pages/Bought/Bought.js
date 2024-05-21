@@ -85,7 +85,7 @@ const Bought = () => {
 
   const ShowProducts = ({ i, data }) => {
     return (
-      <div className="h-100 h-custom" style={{ "background-color": "#d2c9ff" }}>
+      <div className="h-100 h-custom" style={{ "backgroundColor": "#d2c9ff" }}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-12">

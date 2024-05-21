@@ -5,40 +5,7 @@ import "react-loading-skeleton/dist/skeleton.css";
 
 import { Link, useNavigate } from "react-router-dom";
 import { doc, getDoc, setDoc, onSnapshot } from "firebase/firestore";
-import { db } from "../../firebaseinit";/**
- * Cart.js
- *
- * This file contains the Cart component, which represents the shopping cart page of the application.
- * It handles the display of the user's cart items, allows them to add or remove items from the cart,
- * and calculates the total price of the items in the cart.
- *
- * The Cart component includes the following functions:
- * - total: Calculates the total price of the items in the cart.
- * - plusProduct: Adds a product to the cart.
- * - minusProduct: Removes a product from the cart.
- * - buy: Handles the process of buying the items in the cart.
- * - Loading: Displays a loading skeleton while the cart data is being fetched.
- *
- * This file also imports necessary dependencies and Firebase Firestore functions for data manipulation.
- * It uses React hooks and state to manage the cart data and loading status.
- *
- * Usage:
- * Import this file and use the Cart component in the desired location of your application.
- * Ensure that the necessary dependencies and Firebase configuration are properly set up.
- *
- * Example:
- * import Cart from './Cart';
- *
- * function App() {
- *   return (
- *     <div>
- *       <Cart />
- *     </div>
- *   );
- * }
- *
- * export default App;
- */
+import { db } from "../../firebaseinit";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../redux/reducer/authReducer";
 
@@ -74,9 +41,7 @@ const Cart = () => {
     } else {
       product.count = 1;
     }
-    console.log(product);
     data[product.id] = product;
-    console.log(data);
     setDoc(docRef, data);
   };
 
@@ -90,7 +55,6 @@ const Cart = () => {
     } else {
       data[product.id] = product;
     }
-    console.log(data);
     setDoc(docRef, data);
   };
 
@@ -134,13 +98,13 @@ const Cart = () => {
 
   const ShowProducts = () => {
     return (
-      <div className="h-100 h-custom" style={{ "background-color": "#d2c9ff" }}>
+      <div className="h-100 h-custom" style={{ "backgroundColor": "#d2c9ff" }}>
         <div className="container py-5 h-100">
           <div className="row d-flex justify-content-center align-items-center h-100">
             <div className="col-12">
               <div
                 className="card card-registration card-registration-2"
-                style={{ "border-radius": "15px" }}
+                style={{ "borderRadius": "15px" }}
               >
                 <div className="card-body p-0">
                   <div className="row g-0">
@@ -156,7 +120,7 @@ const Cart = () => {
                         </div>
                         <hr className="my-4" />
                         {Object.values(data)?.map((product) => (
-                          <>
+                          <div key={product.id}>
                             <div className="row mb-4 d-flex justify-content-between align-items-center">
                               <div className="col-md-2 col-lg-2 col-xl-2">
                                 <img
@@ -179,7 +143,7 @@ const Cart = () => {
                                   onClick={() => minusProduct(product)}
                                 >
                                   <img
-                                    src="/minus.png"
+                                    src="./minus.png"
                                     style={{ height: 10 }}
                                     alt="minus"
                                   />
@@ -192,7 +156,7 @@ const Cart = () => {
                                   onClick={() => plusProduct(product)}
                                 >
                                   <img
-                                    src="/plus.png"
+                                    src="./plus.png"
                                     style={{ height: 10 }}
                                     alt="minus"
                                   />
@@ -211,7 +175,7 @@ const Cart = () => {
                             </div>
 
                             <hr className="my-4" />
-                          </>
+                          </div>
                         ))}
 
                         <div className="pt-5">

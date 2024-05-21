@@ -22,14 +22,13 @@ import { auth } from "./firebaseinit";
 
 function App() {
   const { userId, loading } = useSelector(authSelector);
-  console.log("userid",userId);
   const dispatch = useDispatch();
   useEffect(() => {
     if (loading === false) return;
     const sub = auth.onAuthStateChanged((user) => {
       if (user) {
         const uid = user.uid;
-        console.log("uid", uid);
+        console.log("user is logged in");
         dispatch(authAction.login(uid));
       } else {
         console.log("user is logged out");

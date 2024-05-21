@@ -4,10 +4,11 @@ import Skeleton from "react-loading-skeleton";
 import "react-loading-skeleton/dist/skeleton.css";
 
 import { useNavigate } from "react-router-dom";
-import { doc, getDoc, setDoc } from "firebase/firestore";
+import { doc, getDoc, onSnapshot, setDoc } from "firebase/firestore";
 import { db } from "../../firebaseinit";
 import { useSelector } from "react-redux";
 import { authSelector } from "../../redux/reducer/authReducer";
+import { toast } from "react-toastify";
 
 /**
  * Home.js
@@ -44,6 +45,7 @@ const Home = () => {
   const userId = useSelector(authSelector).userId;
   // data or values form the api
   const [data, setData] = useState([]);
+  const [userData, setUserData] = useState([]);
   // data or values form the api after appling filter
   const [filter, setFilter] = useState(data);
   // loading state till the data is loaded
@@ -51,6 +53,14 @@ const Home = () => {
   // mounted to check if the ui i on the screen or not
   const mounted = useRef(true);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (userId == null) return;
+    const unsubscribe = onSnapshot(doc(db, "cart", userId), (doc) => {
+      setUserData(() => doc.data() ?? []);
+    });
+    return unsubscribe;
+  }, [userId]);
 
   useEffect(() => {
     // fetch data from api
@@ -87,6 +97,7 @@ const Home = () => {
     }
     data[product.id] = product;
     setDoc(docRef, data);
+    toast.success("Product added to cart");
   };
 
   // loading ui
@@ -191,7 +202,8 @@ const Home = () => {
                     className="button"
                     onClick={() => addProduct(product)}
                   >
-                    Add to Cart
+
+                    {(userData[product.id]?.count) ? (userData[product.id]?.count + " in cart") : "Add to Cart"}
                   </button>
                 </ul>
               </div>
@@ -201,7 +213,7 @@ const Home = () => {
       </>
     );
   };
-  
+
   return (
     <>
       <div className="container my-1 py-1">
